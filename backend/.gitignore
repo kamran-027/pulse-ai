@@ -1,0 +1,31 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Byte-compiled / Optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# SQLite Database & Storage
+*.db
+*.sqlite3
+clinic.db
+
+# Logs & Temporary Files
+*.log
+.pytest_cache/
+.coverage
+
+# macOS & IDE files
+.DS_Store
+.vscode/
+.idea/
