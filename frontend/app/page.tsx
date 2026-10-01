@@ -7,7 +7,7 @@ import { ChatWidget } from "./components/ChatWidget";
 import { WhatsAppSimulator } from "./components/WhatsAppSimulator";
 import { DoctorScheduleFeed } from "./components/DoctorScheduleFeed";
 import { VoiceAgent } from "./components/VoiceAgent";
-import { Sparkles, Bot, PhoneCall, ShieldCheck, ArrowUpRight, Zap, Mic } from "lucide-react";
+import { Sparkles, Bot, PhoneCall, ShieldCheck, ArrowUpRight, Zap, Mic, Phone } from "lucide-react";
 
 export default function Home() {
   const [activePrompt, setActivePrompt] = useState<string | undefined>(undefined);
@@ -64,6 +64,50 @@ export default function Home() {
         {/* Hero Section */}
         <ClinicHero onOpenChat={handleOpenChatWithPrompt} />
 
+        {/* ═══════════════════════════════════════════ */}
+        {/* VOICE AGENT — Hero Feature Showcase        */}
+        {/* ═══════════════════════════════════════════ */}
+        <div className="pt-4">
+          {/* Section Header */}
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-white text-xs font-semibold mb-3 shadow-lg">
+              <Phone className="w-3.5 h-3.5 text-teal-400" />
+              <span>Voice Channel — AI Phone Receptionist</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/30 font-bold uppercase">
+                New
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+              Talk to Aura — Your 24/7 AI Front Desk
+            </h2>
+            <p className="text-sm text-slate-500 mt-1.5 max-w-lg mx-auto">
+              Click call, speak naturally, and watch Aura assess symptoms, check doctor availability, and book appointments — all by voice in real-time.
+            </p>
+          </div>
+
+          {/* Voice Agent — Centered Hero Layout */}
+          <div className="max-w-md mx-auto">
+            <VoiceAgent />
+          </div>
+
+          {/* Feature Pills beneath the voice agent */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
+            {[
+              "Sub-500ms Latency",
+              "Real-Time Function Calling",
+              "Hinglish Support",
+              "No App Download Required",
+            ].map((f) => (
+              <span
+                key={f}
+                className="text-[11px] px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-600 font-medium"
+              >
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* Interactive Split-Screen Showcase */}
         <div id="receptionist-chat" className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-4">
           {/* Left Column: 24/7 AI Receptionist */}
@@ -97,22 +141,6 @@ export default function Home() {
             </div>
 
             <WhatsAppSimulator latestBooking={latestBooking} />
-          </div>
-        </div>
-
-        {/* Voice Agent Showcase */}
-        <div className="space-y-3 pt-4">
-          <div className="flex items-center justify-between px-1">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-              <Mic className="w-3.5 h-3.5 text-blue-600" />
-              <span>Voice Channel: AI Phone Receptionist</span>
-            </span>
-            <span className="text-[11px] text-blue-700 bg-blue-50 font-medium px-2 py-0.5 rounded-full">
-              Live Audio Streaming
-            </span>
-          </div>
-          <div className="max-w-md mx-auto w-full">
-            <VoiceAgent />
           </div>
         </div>
 
