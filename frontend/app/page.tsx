@@ -6,7 +6,8 @@ import { ClinicHero } from "./components/ClinicHero";
 import { ChatWidget } from "./components/ChatWidget";
 import { WhatsAppSimulator } from "./components/WhatsAppSimulator";
 import { DoctorScheduleFeed } from "./components/DoctorScheduleFeed";
-import { Sparkles, Bot, PhoneCall, ShieldCheck, ArrowUpRight, Zap } from "lucide-react";
+import { VoiceAgent } from "./components/VoiceAgent";
+import { Sparkles, Bot, PhoneCall, ShieldCheck, ArrowUpRight, Zap, Mic } from "lucide-react";
 
 export default function Home() {
   const [activePrompt, setActivePrompt] = useState<string | undefined>(undefined);
@@ -50,13 +51,13 @@ export default function Home() {
                 </span>
               </p>
               <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
-                Dual-channel autonomous patient intake: Web AI Widget + 24/7 WhatsApp auto-triage and doctor calendar booking.
+                Tri-channel autonomous patient intake: Web AI Widget + WhatsApp Auto-Triage + Real-Time Voice Agent with calendar booking.
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 text-xs text-teal-300 font-mono shrink-0">
-            <span>Powered by Gemini 3.6 Flash & LangGraph</span>
+            <span>Powered by Gemini Live API & LangGraph</span>
           </div>
         </div>
 
@@ -96,6 +97,22 @@ export default function Home() {
             </div>
 
             <WhatsAppSimulator latestBooking={latestBooking} />
+          </div>
+        </div>
+
+        {/* Voice Agent Showcase */}
+        <div className="space-y-3 pt-4">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <Mic className="w-3.5 h-3.5 text-blue-600" />
+              <span>Voice Channel: AI Phone Receptionist</span>
+            </span>
+            <span className="text-[11px] text-blue-700 bg-blue-50 font-medium px-2 py-0.5 rounded-full">
+              Live Audio Streaming
+            </span>
+          </div>
+          <div className="max-w-md mx-auto w-full">
+            <VoiceAgent />
           </div>
         </div>
 
