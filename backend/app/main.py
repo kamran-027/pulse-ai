@@ -1,8 +1,9 @@
 import os
 import json
 import asyncio
+import logging
 from typing import List, Dict, Optional, Any
-from fastapi import FastAPI, Query, HTTPException, Request
+from fastapi import FastAPI, Query, HTTPException, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 from pydantic import BaseModel
@@ -19,6 +20,10 @@ from .database import (
     init_db
 )
 from .agent.graph import get_agent, get_llm
+from .voice_agent import GeminiVoiceBridge
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("pulseai")
 
 load_dotenv()
 
@@ -171,3 +176,31 @@ async def chat_stream_endpoint(
             yield json.dumps({"event": "error", "data": f"Error: {str(e)}"})
 
     return EventSourceResponse(event_generator())
+
+
+@app.websocket("/api/voice/stream")
+async def voice_stream_endpoint(websocket: WebSocket):
+    """
+    WebSocket endpoint for real-time voice conversations.
+    
+    Browser sends: raw 16-bit PCM audio at 16kHz (binary frames)
+    Server sends: JSON messages with audio, transcripts, tool events, and status
+    """
+    await websocket.accept()
+    logger.info("Voice WebSocket client connected.")
+
+    bridge = GeminiVoiceBridge(client_ws=websocket)
+
+    try:
+        await bridge.run()
+    except WebSocketDisconnect:
+        logger.info("Voice WebSocket client disconnected.")
+    except Exception as e:
+        logger.error(f"Voice WebSocket error: {e}")
+        try:
+            await websocket.send_json({"type": "error", "message": str(e)})
+        except Exception:
+            pass
+    finally:
+        await bridge.close()
+        logger.info("Voice session cleaned up.")
