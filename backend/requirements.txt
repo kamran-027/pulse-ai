@@ -7,3 +7,4 @@ langgraph
 pydantic
 python-dotenv
 httpx
+websockets
